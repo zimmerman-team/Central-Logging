@@ -33,7 +33,7 @@ We create separate project branches which are based off of `main`, for different
 
 Currently supported dockerised projects are:
  - [Grafana](https://github.com/zimmerman-team/Central-Logging) - at branch: `main`
- - [DataXplorer](https://github.com/zimmerman-team/DX) - at branch: `projects/dx`
+ - [DataXplorer](https://github.com/zimmerman-team/DX) - at branch: `project/dx`
 
 In these projects, this logging project should be used as a submodule, pointing to the correct branch.
 
