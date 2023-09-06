@@ -51,3 +51,11 @@ scrape_configs:
         labels:
           job: nginx_error_old
           __path__: /var/log/nginx/error.log.1
+
+  - job_name: dx_backend_log
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: dx_backend_log
+          __path__: /var/log/dx_backend.log
