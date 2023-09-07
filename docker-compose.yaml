@@ -8,10 +8,6 @@ services:
   read:
     image: grafana/loki:2.8.3
     command: "-config.file=/etc/loki/config.yaml -target=read"
-    ports:
-      - 3101:3100
-      - 7946
-      - 9095
     volumes:
       - ./loki-config.yaml:/etc/loki/config.yaml
     depends_on:
@@ -29,10 +25,6 @@ services:
   write:
     image: grafana/loki:2.8.3
     command: "-config.file=/etc/loki/config.yaml -target=write"
-    ports:
-      - 3102:3100
-      - 7946
-      - 9095
     volumes:
       - ./loki-config.yaml:/etc/loki/config.yaml
     healthcheck:
@@ -71,8 +63,6 @@ services:
       - MINIO_ROOT_PASSWORD=supersecret
       - MINIO_PROMETHEUS_AUTH_TYPE=public
       - MINIO_UPDATE=off
-    ports:
-      - 9000
     volumes:
       - ./.data/minio:/data
     healthcheck:
@@ -89,24 +79,23 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - --config.file=/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
     networks:
       - loki
 
   node_exporter:
     image: prom/node-exporter
-    ports:
-      - "9100:9100"
     networks:
       - loki
 
   grafana:
     image: grafana/grafana:latest
+    env_file:
+      - .env
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
     depends_on:
       - gateway
     volumes:
@@ -182,8 +171,6 @@ services:
         }
         EOF
         /docker-entrypoint.sh nginx -g "daemon off;"
-    ports:
-      - "3100:3100"
     healthcheck:
       test: ["CMD", "service", "nginx", "status"]
       interval: 10s

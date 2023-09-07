@@ -39,6 +39,13 @@ In these projects, this logging project should be used as a submodule, pointing 
 
 ## The Setup
 The setup should be simple:
+
+Make sure your .env is set up, there is a `.env.example` file which you can use with:
+```
+cp .env.example .env
+```
+Make sure to change the password, and username if desired.
+
 Select the desired branch.
 ```
 sudo docker compose up -d
