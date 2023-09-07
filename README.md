@@ -53,7 +53,6 @@ sudo docker compose up -d
 
 ## DX Custom:
 We have added dashboards for DX Docker images and DX Internal log files.
-
 The port to the Grafana interface is changed to 3003, as DX client will run on 3000.
-
-Local DX internal log files are also mounted volumes for the promtail service.
+Local DX internal log files are also mounted volumes for the promtail service:
+ - DX Backend logs
