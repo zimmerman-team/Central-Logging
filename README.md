@@ -50,3 +50,10 @@ Select the desired branch.
 ```
 sudo docker compose up -d
 ```
+
+## TGF Custom:
+We have added dashboards for TGF Docker images and TGF Internal log files.
+
+The port to the Grafana interface is changed to 3003, as TGF client will run on 3000.
+
+Local TGF internal log files are also mounted volumes for the promtail service.
